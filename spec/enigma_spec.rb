@@ -42,6 +42,13 @@ RSpec.describe Enigma do
 
       expect(actual).to eq expected
     end
+
+    it 'accounts for the space character to be 26' do
+      enigma = Enigma.new
+      expected = 26
+      actual = enigma.convert_to_ordinal(' ')
+      expect(actual).to eq expected
+    end
   end
 
   describe '#letter_key_offsets' do
