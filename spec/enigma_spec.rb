@@ -11,7 +11,7 @@ RSpec.describe Enigma do
   end
 
   describe '#encrypt' do
-    xit 'Encrypts text using optional params' do
+    it 'Encrypts text using optional params' do
       enigma = Enigma.new
 
       expected = {
@@ -20,6 +20,17 @@ RSpec.describe Enigma do
         date: '040895'
       }
       actual = enigma.encrypt('Hello World', '02715', '040895')
+
+      expect(actual).to eq expected
+    end
+  end
+
+  describe '#convert_to_ordinal' do
+    it 'converts a character to it\'s ordinal value' do
+      enigma = Enigma.new
+      
+      expected = 7
+      actual = enigma.convert_to_ordinal('h')
 
       expect(actual).to eq expected
     end

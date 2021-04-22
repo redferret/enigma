@@ -1,4 +1,5 @@
 require 'date'
+require 'pry'
 
 class Enigma
   def initialize
@@ -6,6 +7,31 @@ class Enigma
   end
 
   def encrypt(message, key = generate_key, date = current_date)
+    offsets = offsets(date)
+    keys = generate_keys(key)
+    key_offsets = letter_key_offsets(offsets, keys)
+    downcase_message = message.downcase.chars
+    counter = 0
+
+    encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
+      offset = key_offsets[counter % 4]
+      counter += 1
+      ordinal = convert_to_ordinal(msg_char)
+      shift = ordinal + offset
+      new_char = @character_set[shift % 27]
+      new_message << new_char
+    end
+
+    return {
+      encryption: encrypted_message.join,
+      key: key,
+      date: date
+    }
+  end
+
+  def convert_to_ordinal(char)
+    (char == ' ')? 26 : char.ord - 97
+  end
 
   def letter_key_offsets(array1, array2)
     to_sum = [array1, array2]
