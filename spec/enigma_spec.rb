@@ -25,6 +25,16 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#offsets' do
+    it 'creates the offsets for encryption' do
+      enigma = Enigma.new
+
+      expected = [1, 0, 2, 5]
+
+      expect(enigma.offsets('040895')).to eq expected
+    end
+  end
+
   describe '#generate_keys' do
     it 'generates 4 keys from a given key' do
       enigma = Enigma.new
