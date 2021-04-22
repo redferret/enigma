@@ -1,3 +1,5 @@
 class Enigma
-end
+  def initialize
+    @character_set = ("a".."z").to_a << " "
+  end
 
