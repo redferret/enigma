@@ -9,6 +9,16 @@ class Enigma
 
   end
 
+  def offsets(date)
+    numeric = date.to_i
+    sqr_num = numeric**2
+    str_num = sqr_num.to_s
+    digits = str_num[-4..-1].chars
+    digits.map do |char|
+      char.to_i
+    end
+  end
+
   def generate_keys(from_key)
     key_chars = from_key.chars
     keys = []
