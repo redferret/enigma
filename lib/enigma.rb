@@ -7,6 +7,9 @@ class Enigma
 
   def encrypt(message, key = generate_key, date = current_date)
 
+  def letter_key_offsets(array1, array2)
+    to_sum = [array1, array2]
+    to_sum.transpose.map(&:sum)
   end
 
   def offsets(date)
