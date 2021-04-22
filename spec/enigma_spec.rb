@@ -27,12 +27,15 @@ RSpec.describe Enigma do
 
   describe '#generate_key' do
     it 'generates a new random 5 digit number' do
-      enigma = Engima.new
+      enigma = Enigma.new
       key = enigma.generate_key
       expect(key.length).to eq 5
     end
-    xit 'Pads a zero if the random number is less than 5 digits long' do
-
+    it 'Pads a zero if the random number is less than 5 digits long' do
+      enigma = Enigma.new
+      allow(enigma).to receive(:random).and_return(765)
+      actual = enigma.generate_key
+      expect(actual.length).to eq 5
     end
   end
 end
