@@ -7,13 +7,26 @@ class Enigma
 
   def encrypt(message, key = generate_key, date = current_date)
 
+  def letter_key_offsets(array1, array2)
+    to_sum = [array1, array2]
+    to_sum.transpose.map(&:sum)
+  end
+
+  def offsets(date)
+    numeric = date.to_i
+    sqr_num = numeric**2
+    str_num = sqr_num.to_s
+    digits = str_num[-4..-1].chars
+    digits.map do |char|
+      char.to_i
+    end
   end
 
   def generate_keys(from_key)
     key_chars = from_key.chars
     keys = []
     key_chars.each_cons(2) do |pair|
-      keys << pair.join('')
+      keys << pair.join('').to_i
     end
     keys
   end
