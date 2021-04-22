@@ -59,7 +59,7 @@ class Enigma
 
   def generate_key
     random_number = random(99999)
-    if random_number < 10000
+    if needs_padding?(random_number)
       random_number_as_s = random_number.to_s
       diff = 5 - random_number_as_s.length
       padding = ""
@@ -69,6 +69,10 @@ class Enigma
       return "#{padding}#{random_number_as_s}"
     end
     random_number.to_s
+  end
+
+  def needs_padding?(number)
+    number < 10000
   end
 
   def current_date
