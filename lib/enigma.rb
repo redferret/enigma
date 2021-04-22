@@ -23,3 +23,4 @@ class Enigma
   def random(range)
     rand(range)
   end
+end
