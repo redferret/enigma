@@ -25,10 +25,18 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#needs_padding?' do
+    it 'will return true if number has less than 5 digits' do
+      enigma = Enigma.new
+      expect(enigma.needs_padding?(100)).to eq true
+      expect(enigma.needs_padding?(92834)).to eq false
+    end
+  end
+
   describe '#convert_to_ordinal' do
     it 'converts a character to it\'s ordinal value' do
       enigma = Enigma.new
-      
+
       expected = 7
       actual = enigma.convert_to_ordinal('h')
 
