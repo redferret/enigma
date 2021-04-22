@@ -5,6 +5,9 @@ class Enigma
     @character_set = ("a".."z").to_a << " "
   end
 
+  def encrypt(message, key = generate_key, date = current_date)
+
+  end
 
   def generate_keys(from_key)
     key_chars = from_key.chars
