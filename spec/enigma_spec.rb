@@ -40,7 +40,7 @@ RSpec.describe Enigma do
       enigma = Enigma.new
 
       actual_keys = enigma.generate_keys('02715')
-      expected_keys = ['02', '27', '71', '15']
+      expected_keys = [2, 27, 71, 15]
 
       expect(actual_keys).to eq expected_keys
     end

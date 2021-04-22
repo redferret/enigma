@@ -23,7 +23,7 @@ class Enigma
     key_chars = from_key.chars
     keys = []
     key_chars.each_cons(2) do |pair|
-      keys << pair.join('')
+      keys << pair.join('').to_i
     end
     keys
   end
