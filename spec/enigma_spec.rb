@@ -38,4 +38,14 @@ RSpec.describe Enigma do
       expect(actual.length).to eq 5
     end
   end
+
+  describe '#current_date' do
+    it 'returns date in format DDMMYY' do
+      enigma = Enigma.new
+
+      actual_date = enigma.current_date
+
+      expect(actual_date).to match /\d{6}/
+    end
+  end
 end
