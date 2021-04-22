@@ -10,10 +10,10 @@ class Enigma
     offsets = offsets(date)
     keys = generate_keys(key)
     key_offsets = letter_key_offsets(offsets, keys)
-    downcase_message = message.downcase
+    downcase_message = message.downcase.chars
     counter = 0
 
-    encrypted_message = downcase_message.chars.each_with_object([]) do |msg_char, new_message|
+    encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
       offset = key_offsets[counter % 4]
       counter += 1
       ordinal = convert_to_ordinal(msg_char)
