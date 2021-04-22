@@ -9,7 +9,6 @@ class Enigma
   def generate_key
     random_number = random(99999)
     if random_number < 10000
-      # add padding
       random_number_as_s = random_number.to_s
       diff = 5 - random_number_as_s.length
       padding = ""
