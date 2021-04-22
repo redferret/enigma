@@ -6,6 +6,25 @@ class Enigma
   end
 
   def encrypt(message, key = generate_key, date = current_date)
+    offsets = offsets(date)
+    keys = generate_keys(key)
+    key_offsets = letter_key_offsets(offsets, keys)
+
+    counter = 0
+    encrypted_message = message.chars.each_with_object('') do |msg_char, encrypted_message|
+      shift = key_offsets[counter]
+      counter += 1
+      ordinal = (msg_char.ord - 97)
+      new_char = @character_set[ordinal + shift]
+      encrypted_message += new_char
+    end
+
+    return {
+      encryption: encrypted_message,
+      key: key,
+      date: date
+    }
+  end
 
   def letter_key_offsets(array1, array2)
     to_sum = [array1, array2]
