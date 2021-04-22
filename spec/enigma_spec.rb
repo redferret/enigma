@@ -25,12 +25,35 @@ RSpec.describe Enigma do
     end
   end
 
+  describe '#letter_key_offsets' do
+    it 'sums the offsets and keys together into one array' do
+      enigma = Enigma.new
+
+      expected = [3, 27, 73, 20]
+      offsets = [1, 0, 2, 5]
+      keys = [2, 27, 71, 15]
+      actual = enigma.letter_key_offsets(offsets, keys)
+
+      expect(actual).to eq expected
+    end
+  end
+
+  describe '#offsets' do
+    it 'creates the offsets for encryption' do
+      enigma = Enigma.new
+
+      expected = [1, 0, 2, 5]
+
+      expect(enigma.offsets('040895')).to eq expected
+    end
+  end
+
   describe '#generate_keys' do
     it 'generates 4 keys from a given key' do
       enigma = Enigma.new
 
       actual_keys = enigma.generate_keys('02715')
-      expected_keys = ['02', '27', '71', '15']
+      expected_keys = [2, 27, 71, 15]
 
       expect(actual_keys).to eq expected_keys
     end
