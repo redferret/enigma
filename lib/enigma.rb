@@ -1,3 +1,5 @@
+require 'date'
+
 class Enigma
   def initialize
     @character_set = ("a".."z").to_a << " "
@@ -17,6 +19,16 @@ class Enigma
       return "#{padding}#{random_number_as_s}"
     end
     random_number.to_s
+  end
+
+  def current_date
+    time = Time.now
+    full_time_str = time.to_s
+    full_time_as_arr = full_time_str.split(' ')
+    time_str = full_time_as_arr.first
+
+    date = Date.strptime(time_str)
+    date.strftime('%d%m%y')
   end
 
   private
