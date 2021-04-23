@@ -65,9 +65,4 @@ class Enigma
     date = Date.strptime(time_str)
     date.strftime('%d%m%y')
   end
-
-  private
-  def random(range)
-    rand(range)
-  end
 end

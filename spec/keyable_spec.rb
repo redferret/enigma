@@ -6,6 +6,16 @@ RSpec.describe Keyable do
   before :all do
     @dummyenigma = DummyEnigma.new
   end
+
+  describe '#get_random_number' do
+    it 'returns a number' do
+      allow(@dummyenigma).to receive(:rand).and_return(43257)
+      number = @dummyenigma.get_random_number(99999)
+      
+      expect(@dummyenigma).to have_received(:rand)
+      expect(number).to eq 43257
+    end
+  end
   describe '#offset_keys' do
     it 'sums the offsets and keys together into one array' do
       expected = [3, 27, 73, 20]
