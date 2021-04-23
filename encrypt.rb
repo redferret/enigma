@@ -22,7 +22,7 @@ loop do
         error = error_type.first
         if error == :file_not_found
           puts "  - file not found #{arguments[0]}"
-        elsif error == :wrong_arg_length
+        elsif error == :wrong_arg_length && (arg_length < 2 || arg_length > 4)
           puts "  - Wrong number of arguments given #{arg_length}, expected 2, 3, or 4"
         end
 

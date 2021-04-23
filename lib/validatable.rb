@@ -26,8 +26,7 @@ module Validatable
   def find_errors(arguments)
     errors = []
     wrong_number_of_arguments = not(valid_number_of_arguments? arguments)
-    return (errors << :wrong_arg_length) if wrong_number_of_arguments
-    return if wrong_number_of_arguments
+    errors << :wrong_arg_length if wrong_number_of_arguments
 
     arg_length = arguments.length
     file_name = arguments[0]
