@@ -1,15 +1,11 @@
 require 'rspec'
+require './spec/dummyenigma'
 require './lib/Keyable'
 
 RSpec.describe Keyable do
-  describe '#needs_padding?' do
-    it 'will return true if number has less than 5 digits' do
-      enigma = Enigma.new
-      expect(enigma.needs_padding?(100)).to eq true
-      expect(enigma.needs_padding?(92834)).to eq false
-    end
+  before :all do
+
   end
-  
   describe '#offset_keys' do
     it 'sums the offsets and keys together into one array' do
       enigma = Enigma.new
