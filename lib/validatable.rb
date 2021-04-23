@@ -1,10 +1,7 @@
 module Validatable
   extend self
-  def valid_date?(date)
-    return (/\d{6}/.match? date) && check_date(date)
-  end
 
-  def check_date(date)
+  def valid_date?(date)
     begin
       Date.strptime(date, '%d%m%y')
     rescue ArgumentError
@@ -14,7 +11,7 @@ module Validatable
   end
 
   def valid_key?(key)
-    /\d{5}/.match? key
+    /\b\d{5}\b/.match? key
   end
 
   def valid_number_of_arguments?(args)
@@ -36,20 +33,28 @@ module Validatable
     return false
   end
 
+  def file_exists?(file_name)
+    File.exist?(file_name)
+  end
+
   def find_error(arguments)
     wrong_number_of_arguments = not(valid_number_of_arguments? arguments)
     puts '- Wrong number of arguments given' if wrong_number_of_arguments
     return if wrong_number_of_arguments
 
     arg_length = arguments.length
-    if arg_length == 2
-      # files only
-      return true
-    elsif arg_length == 4
-      puts '- Invalid key given' if not(valid_key? arguments[2])
-      puts '- Invalid date entered' if not(valid_date? arguments[3])
+    file_name = arguments[0]
+
+    puts "- File not found #{file_name}" if not(file_exists?(file_name))
+
+    if arg_length == 4
+      key = arguments[2]
+      date = arguments[3]
+      puts '- Invalid key given' if not(valid_key? key)
+      puts '- Invalid date given' if not(valid_date? date)
     elsif arg_length == 3
-      puts '- Invalid key given' if not(valid_key? arguments[2])
+      key = arguments[2]
+      puts '- Invalid key given' if not(valid_key? key)
     end
   end
 end
