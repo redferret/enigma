@@ -22,10 +22,9 @@ module Validatable
     if valid_number_of_arguments?(arguments)
       arg_length = arguments.length
       if arg_length == 2
-        # files only
-        return true
+        return file_exists?(arguments[0])
       elsif arg_length == 3
-        return valid_key?(arguments[2])
+        return valid_date?(arguments[2]) || valid_key?(arguments[2])
       elsif arg_length == 4
         return valid_key?(arguments[2]) && valid_date?(arguments[3])
       end
