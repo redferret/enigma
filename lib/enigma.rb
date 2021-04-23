@@ -3,9 +3,9 @@ require 'pry'
 
 require './lib/keyable'
 
-class Enigma < Cypher
+class Enigma
   include Keyable
-  
+
   def initialize
     @character_set = ("a".."z").to_a << " "
   end
