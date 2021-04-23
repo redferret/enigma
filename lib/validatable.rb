@@ -46,7 +46,7 @@ module Validatable
     arg_length = arguments.length
     file_name = arguments[0]
 
-    errors << :file_not_found if not(file_exists?(file_name))
+    return (errors << :file_not_found) if not(file_exists?(file_name))
 
     if arg_length == 4
       key = arguments[2]
