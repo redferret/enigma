@@ -47,7 +47,12 @@ module Validatable
 
     return (errors << :file_not_found) if not(file_exists?(file_name))
 
-    if arg_length >= 3
+    if arg_length == 3
+      key = arguments[2]
+      date = arguments[2]
+      errors << :invalid_key_given if not(valid_key? key)
+      errors << :invalid_date_given if not(valid_date? date)
+    else
       key = arguments[2]
       date = arguments[3]
       errors << :invalid_key_given if not(valid_key? key)
