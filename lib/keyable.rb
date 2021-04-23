@@ -1,3 +1,5 @@
+require './lib/validatable'
+
 module Keyable
   def offset_keys(array1, array2)
     to_sum = [array1, array2]
@@ -14,20 +16,15 @@ module Keyable
   end
 
   def generate_key
-    random_number = random(99999)
-    if needs_padding?(random_number)
-      random_number_as_s = random_number.to_s
-      diff = 5 - random_number_as_s.length
+    random_number = random(99999).to_s
+    if Validatable.valid_key?(random_number)
+      diff = 5 - random_number.length
       padding = ""
       diff.times do
         padding << '0'
       end
-      return "#{padding}#{random_number_as_s}"
+      return "#{padding}#{random_number}"
     end
-    random_number.to_s
-  end
-
-  def needs_padding?(number)
-    number < 10000
+    random_number
   end
 end
