@@ -15,8 +15,8 @@ loop do
   break if input == ''
   arguments = input.split(' ')
   arg_length = arguments.length
-  if not(Validatable.arguments_are_valid? arguments)
-    error_type = Validatable.find_error(arguments)
+  error_type = Validatable.find_errors(arguments)
+  if error_type.length > 0
     case error_type.length
       when 1
         error = error_type.first

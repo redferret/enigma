@@ -16,26 +16,14 @@ module Validatable
   end
 
   def valid_number_of_arguments?(args)
-    args.length >= 2 && args.length < 5
-  end
-
-  def arguments_are_valid?(arguments)
-    if valid_number_of_arguments?(arguments)
-      arg_length = arguments.length
-      if arg_length == 2
-        return file_exists?(arguments[0])
-      elsif arg_length == 4
-        return valid_key?(arguments[2]) && valid_date?(arguments[3])
-      end
-    end
-    return false
+    args.length == 4
   end
 
   def file_exists?(file_name)
     File.exist?(file_name)
   end
 
-  def find_error(arguments)
+  def find_errors(arguments)
     errors = []
     wrong_number_of_arguments = not(valid_number_of_arguments? arguments)
     return (errors << :wrong_arg_length) if wrong_number_of_arguments

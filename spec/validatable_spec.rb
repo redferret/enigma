@@ -58,44 +58,6 @@ RSpec.describe Validatable do
     end
   end
 
-  describe '#arguments_are_valid?' do
-    it 'returns true if all arguments are valid' do
-      allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
-      allow(Validatable).to receive(:file_exists?).and_return(true)
-      allow(Validatable).to receive(:valid_date?).and_return(true)
-      allow(Validatable).to receive(:valid_key?).and_return(true)
-
-      dummy_args = [0,0,0,0]
-
-      expect(Validatable.arguments_are_valid?(dummy_args)).to eq true
-    end
-
-    it 'returns false if any arguments are invalid' do
-      allow(Validatable).to receive(:valid_number_of_arguments?).and_return(false)
-      allow(Validatable).to receive(:file_exists?).and_return(true)
-      allow(Validatable).to receive(:valid_date?).and_return(true)
-      allow(Validatable).to receive(:valid_key?).and_return(true)
-
-      dummy_args = [0,0,0,0]
-
-      expect(Validatable.arguments_are_valid?(dummy_args)).to eq false
-
-      allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
-      allow(Validatable).to receive(:file_exists?).and_return(true)
-      allow(Validatable).to receive(:valid_date?).and_return(false)
-      allow(Validatable).to receive(:valid_key?).and_return(true)
-
-      expect(Validatable.arguments_are_valid?(dummy_args)).to eq false
-
-      allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
-      allow(Validatable).to receive(:file_exists?).and_return(true)
-      allow(Validatable).to receive(:valid_date?).and_return(true)
-      allow(Validatable).to receive(:valid_key?).and_return(false)
-
-      expect(Validatable.arguments_are_valid?(dummy_args)).to eq false
-    end
-  end
-
   describe '#find_error' do
     it 'returns errors for an invalid key given' do
       allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
