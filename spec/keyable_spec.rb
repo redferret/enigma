@@ -6,6 +6,16 @@ RSpec.describe Keyable do
   before :all do
     @dummyenigma = DummyEnigma.new
   end
+
+  describe '#get_random_number' do
+    it 'returns a number' do
+      allow(@dummyenigma).to receive(:rand).and_return(43257)
+      number = @dummyenigma.get_random_number(99999)
+
+      expect(@dummyenigma).to have_received(:rand)
+      expect(number).to eq 43257
+    end
+  end
   describe '#offset_keys' do
     it 'sums the offsets and keys together into one array' do
       expected = [3, 27, 73, 20]
@@ -28,7 +38,7 @@ RSpec.describe Keyable do
 
   describe '#generate_key' do
     it 'generates a new 5 digit number' do
-      allow(@dummyenigma).to receive(:random).and_return(43242)
+      allow(@dummyenigma).to receive(:get_random_number).and_return(43242)
       allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(false)
 
       key = @dummyenigma.generate_key
@@ -37,7 +47,7 @@ RSpec.describe Keyable do
       expect(key).to eq '43242'
     end
     it 'Pads a zero if the random number is less than 5 digits long' do
-      allow(@dummyenigma).to receive(:random).and_return(999)
+      allow(@dummyenigma).to receive(:get_random_number).and_return(999)
       allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(true)
       actual = @dummyenigma.generate_key
       expect(actual.length).to eq 5

@@ -16,7 +16,7 @@ module Keyable
   end
 
   def generate_key
-    random_number = random(99999).to_s
+    random_number = get_random_number(99999).to_s
     if not_a_valid_key?(random_number)
       diff = 5 - random_number.length
       padding = ""
@@ -30,5 +30,9 @@ module Keyable
 
   def not_a_valid_key?(key)
     Validatable.valid_key?(key)
+  end
+
+  def get_random_number(range)
+    rand(range)
   end
 end
