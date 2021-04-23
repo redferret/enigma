@@ -17,7 +17,7 @@ module Keyable
 
   def generate_key
     random_number = random(99999).to_s
-    if Validatable.valid_key?(random_number)
+    if not_a_valid_key?(random_number)
       diff = 5 - random_number.length
       padding = ""
       diff.times do
@@ -26,5 +26,9 @@ module Keyable
       return "#{padding}#{random_number}"
     end
     random_number
+  end
+
+  def not_a_valid_key?(key)
+    Validatable.valid_key?(key)
   end
 end
