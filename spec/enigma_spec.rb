@@ -36,13 +36,50 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:letter_key_offsets).and_return([3, 27, 73, 20])
       allow(enigma).to receive(:generate_key).and_return('02715')
       allow(enigma).to receive(:current_date).and_return('040895')
-      
+
       expected = {
         encryption: 'keder ohulw',
         key: '02715',
         date: '040895'
       }
       actual = enigma.encrypt('Hello World')
+
+      expect(actual).to eq expected
+    end
+  end
+
+  describe '#decrypt' do
+    it 'decrypts a message with given key and date' do
+      enigma = Enigma.new
+
+      allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
+      allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
+      allow(enigma).to receive(:letter_key_offsets).and_return([3, 27, 73, 20])
+
+      expected = {
+        encryption: 'hello world',
+        key: '02715',
+        date: '040895'
+      }
+      actual = enigma.decrypt('keder ohulw', '02715', '040895')
+
+      expect(actual).to eq expected
+    end
+
+    it 'derypts text without a date' do
+      enigma = Enigma.new
+
+      allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
+      allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
+      allow(enigma).to receive(:letter_key_offsets).and_return([3, 27, 73, 20])
+      allow(enigma).to receive(:current_date).and_return('040895')
+
+      expected = {
+        encryption: 'hello world',
+        key: '02715',
+        date: '040895'
+      }
+      actual = enigma.decrypt('keder ohulw', '02715')
 
       expect(actual).to eq expected
     end
