@@ -4,6 +4,7 @@ module Validatable
   def valid_date?(date)
     begin
       Date.strptime(date, '%d%m%y')
+      return /\b\d{6}\b/.match? date
     rescue ArgumentError
       return false
     end
@@ -23,8 +24,6 @@ module Validatable
       arg_length = arguments.length
       if arg_length == 2
         return file_exists?(arguments[0])
-      elsif arg_length == 3
-        return valid_date?(arguments[2]) || valid_key?(arguments[2])
       elsif arg_length == 4
         return valid_key?(arguments[2]) && valid_date?(arguments[3])
       end
