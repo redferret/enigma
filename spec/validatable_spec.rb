@@ -44,9 +44,7 @@ RSpec.describe Validatable do
   end
 
   describe '#valid_number_of_arguments?' do
-    it 'returns true if number of arguments are 2, 3, or 4' do
-      expect(Validatable.valid_number_of_arguments?([0,0])).to eq true
-      expect(Validatable.valid_number_of_arguments?([0,0,0])).to eq true
+    it 'returns true if number of arguments are 4' do
       expect(Validatable.valid_number_of_arguments?([0,0,0,0])).to eq true
     end
 
@@ -58,7 +56,7 @@ RSpec.describe Validatable do
     end
   end
 
-  describe '#find_error' do
+  describe '#find_errors' do
     it 'returns errors for an invalid key given' do
       allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
       allow(Validatable).to receive(:file_exists?).and_return(true)
@@ -66,51 +64,54 @@ RSpec.describe Validatable do
       allow(Validatable).to receive(:valid_key?).and_return(false)
 
       dummy_args = [0,0,0,0]
-      errors = Validatable.find_error(dummy_args)
+      errors = Validatable.find_errors(dummy_args)
 
       expect(errors).to eq [:invalid_key_given]
     end
 
-    it 'Prints a message for an invalid date given' do
+    it 'returns errors for an invalid date given' do
       allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
       allow(Validatable).to receive(:file_exists?).and_return(true)
       allow(Validatable).to receive(:valid_date?).and_return(false)
       allow(Validatable).to receive(:valid_key?).and_return(true)
 
       dummy_args = [0,0,0,0]
-      errors = Validatable.find_error(dummy_args)
+      errors = Validatable.find_errors(dummy_args)
 
       expect(errors).to eq [:invalid_date_given]
     end
 
-    it 'Prints messages for an invalid key and date given' do
+    it 'returns errors for an invalid key and date given' do
       allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
       allow(Validatable).to receive(:file_exists?).and_return(true)
       allow(Validatable).to receive(:valid_date?).and_return(false)
       allow(Validatable).to receive(:valid_key?).and_return(false)
 
       dummy_args = [0,0,0,0]
-      errors = Validatable.find_error(dummy_args)
+      errors = Validatable.find_errors(dummy_args)
 
       expect(errors).to eq [:invalid_key_given, :invalid_date_given]
     end
 
-    it 'Prints messages for an invalid number of args' do
+    it 'returns errors for an invalid number of args' do
       allow(Validatable).to receive(:valid_number_of_arguments?).and_return(false)
+      allow(Validatable).to receive(:file_exists?).and_return(true)
+      allow(Validatable).to receive(:valid_date?).and_return(false)
+
 
       dummy_args = []
-      errors = Validatable.find_error(dummy_args)
+      errors = Validatable.find_errors(dummy_args)
 
-      expect(errors).to eq [:wrong_arg_length]
+      expect(errors.include?(:wrong_arg_length)).to eq true
     end
 
-    it 'Prints messages for file not existing' do
+    it 'returns errors for file not existing' do
       allow(Validatable).to receive(:valid_number_of_arguments?).and_return(true)
       allow(Validatable).to receive(:file_exists?).and_return(false)
 
       file_name = './test_file'
       dummy_args = [file_name]
-      errors = Validatable.find_error(dummy_args)
+      errors = Validatable.find_errors(dummy_args)
 
       expect(errors).to eq [:file_not_found]
     end
