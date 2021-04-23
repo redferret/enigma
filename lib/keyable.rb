@@ -14,7 +14,7 @@ module Keyable
   end
 
   def generate_key
-    random_number = random(99999)
+    random_number = random(999..99999)
     if needs_padding?(random_number)
       random_number_as_s = random_number.to_s
       diff = 5 - random_number_as_s.length
