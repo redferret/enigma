@@ -21,7 +21,7 @@ class Enigma
   def process_message(message, key, date, encrypt = true)
     offsets = offsets(date)
     keys = generate_keys(key)
-    key_offsets = letter_key_offsets(offsets, keys)
+    key_offsets = offset_keys(offsets, keys)
     downcase_message = message.downcase.chars
     counter = 0
 

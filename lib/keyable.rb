@@ -1,5 +1,5 @@
 module Keyable
-  def letter_key_offsets(array1, array2)
+  def offset_keys(array1, array2)
     to_sum = [array1, array2]
     to_sum.transpose.map(&:sum)
   end
