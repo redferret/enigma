@@ -1,4 +1,4 @@
-class Validatable
-  def initialize
-  end
+module Validatable
+  extend self
+  
 end
