@@ -1,4 +1,5 @@
-class Dummyenigma
-  def initialize
-  end
+require './lib/keyable'
+
+class DummyEnigma
+  include Keyable
 end
