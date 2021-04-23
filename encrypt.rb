@@ -9,7 +9,6 @@ puts '<path to file to encrypt> <path to write enrypted message> <key> <date>'
 puts '- keys are five digits with padded zeros `09876`'
 puts '- dates are formatted as DDMMYY'
 
-# ./test_message output 00943 270722
 loop do
   print '>'
   input = gets.chomp
