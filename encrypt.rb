@@ -7,7 +7,7 @@ puts "Press Return to quit the program\n\n"
 puts "Enter the following to Encrypt a message (date and/or key are optional)"
 puts "<path to file to encrypt> <path to write enrypted message> <key> <date>"
 puts '- keys are five digits with padded zeros `09876`'
-puts '- dates are formatted as MMDDYY'
+puts '- dates are formatted as DDMMYY'
 
 loop do
   print '>'
