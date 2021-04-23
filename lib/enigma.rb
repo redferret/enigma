@@ -1,35 +1,24 @@
 require 'date'
 require 'pry'
 
+require './lib/keyable'
+
 class Enigma
+  include Keyable
+
   def initialize
     @character_set = ("a".."z").to_a << " "
   end
 
   def encrypt(message, key = generate_key, date = current_date)
-    offsets = offsets(date)
-    keys = generate_keys(key)
-    key_offsets = letter_key_offsets(offsets, keys)
-    downcase_message = message.downcase.chars
-    counter = 0
-
-    encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
-      offset = key_offsets[counter % 4]
-      counter += 1
-      ordinal = convert_to_ordinal(msg_char)
-      shift = ordinal + offset
-      new_char = @character_set[shift % 27]
-      new_message << new_char
-    end
-
-    return {
-      encryption: encrypted_message.join,
-      key: key,
-      date: date
-    }
+    process_message(message, key, date)
   end
 
   def decrypt(message, key, date = current_date)
+    process_message(message, key, date, false)
+  end
+
+  def process_message(message, key, date, encrypt = true)
     offsets = offsets(date)
     keys = generate_keys(key)
     key_offsets = letter_key_offsets(offsets, keys)
@@ -40,7 +29,8 @@ class Enigma
       offset = key_offsets[counter % 4]
       counter += 1
       ordinal = convert_to_ordinal(msg_char)
-      shift = ordinal - offset
+      shift = ordinal + offset if encrypt
+      shift = ordinal - offset if not encrypt
       new_char = @character_set[shift % 27]
       new_message << new_char
     end
@@ -56,11 +46,6 @@ class Enigma
     (char == ' ')? 26 : char.ord - 97
   end
 
-  def letter_key_offsets(array1, array2)
-    to_sum = [array1, array2]
-    to_sum.transpose.map(&:sum)
-  end
-
   def offsets(date)
     numeric = date.to_i
     sqr_num = numeric**2
@@ -69,33 +54,6 @@ class Enigma
     digits.map do |char|
       char.to_i
     end
-  end
-
-  def generate_keys(from_key)
-    key_chars = from_key.chars
-    keys = []
-    key_chars.each_cons(2) do |pair|
-      keys << pair.join.to_i
-    end
-    keys
-  end
-
-  def generate_key
-    random_number = random(99999)
-    if needs_padding?(random_number)
-      random_number_as_s = random_number.to_s
-      diff = 5 - random_number_as_s.length
-      padding = ""
-      diff.times do
-        padding << '0'
-      end
-      return "#{padding}#{random_number_as_s}"
-    end
-    random_number.to_s
-  end
-
-  def needs_padding?(number)
-    number < 10000
   end
 
   def current_date
