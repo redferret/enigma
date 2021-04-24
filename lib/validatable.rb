@@ -38,7 +38,7 @@ module Validatable
       date = arguments[2]
       errors << :invalid_key_given if not(valid_key? key)
       errors << :invalid_date_given if not(valid_date? date)
-    else
+    elsif arg_length == 4
       key = arguments[2]
       date = arguments[3]
       errors << :invalid_key_given if not(valid_key? key)
