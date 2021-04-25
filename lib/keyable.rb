@@ -29,7 +29,7 @@ module Keyable
   end
 
   def not_a_valid_key?(key)
-    Validatable.valid_key?(key)
+    not Validatable.valid_key?(key)
   end
 
   def get_random_number(range)

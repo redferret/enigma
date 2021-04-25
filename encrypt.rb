@@ -20,7 +20,7 @@ begin
       end
     end
   end
-  puts '  - args found as good'
+  
 rescue ArgumentError => e
   puts e.message
 end
