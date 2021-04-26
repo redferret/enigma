@@ -1,5 +1,3 @@
-require 'pry'
-
 require './lib/keyable'
 require './lib/dateable'
 
