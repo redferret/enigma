@@ -1,3 +1,5 @@
+require './lib/keyable'
+
 module Validable
   extend self
 
@@ -12,7 +14,7 @@ module Validable
   end
 
   def valid_key?(key)
-    /\b\d{5}\b/.match? key
+    Keyable.valid_key?(key)
   end
 
   def find_errors(arguments, expected_arg_length = 4)

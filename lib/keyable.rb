@@ -27,7 +27,11 @@ module Keyable
   end
 
   def not_a_valid_key?(key)
-    not (/\b\d{5}\b/.match? key)
+    not (Keyable.valid_key?(key))
+  end
+
+  def self.valid_key?(key)
+    /\b\d{5}\b/.match? key
   end
 
   def get_random_number(range)
