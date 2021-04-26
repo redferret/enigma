@@ -51,6 +51,7 @@ RSpec.describe Keyable do
       allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(true)
       actual = @dummyenigma.generate_key
       expect(actual.length).to eq 5
+      expect(actual).to eq '00999'
     end
   end
 
