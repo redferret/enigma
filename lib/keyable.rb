@@ -1,4 +1,4 @@
-require './lib/validatable'
+require './lib/validation'
 
 module Keyable
   def offset_keys(array1, array2)
@@ -29,7 +29,7 @@ module Keyable
   end
 
   def not_a_valid_key?(key)
-    not Validatable.valid_key?(key)
+    not Validation.valid_key?(key)
   end
 
   def get_random_number(range)
