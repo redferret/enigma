@@ -8,7 +8,7 @@ arguments = ARGV
 arg_length = arguments.length
 
 enigma = Enigma.new
-error_type = Validable.find_errors(arguments)
+error_type = Validable.find_errors(arguments, 2)
 
 begin
   if error_type.length > 0
@@ -17,9 +17,7 @@ begin
         when :file_not_found
           raise ArgumentError, '- Message file not found'
         when :wrong_arg_length
-          if arg_length > 2
-            raise ArgumentError, '- Wrong number of arguments given, expected 2'
-          end
+          raise ArgumentError, '- Wrong number of arguments given, expected 2'
       end
     end
   end

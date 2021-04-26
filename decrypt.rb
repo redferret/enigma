@@ -17,9 +17,7 @@ begin
         when :file_not_found
           raise ArgumentError, '- Message file not found'
         when :wrong_arg_length
-          if arg_length != 4
-            raise ArgumentError, '- Wrong number of arguments given, expected 4'
-          end
+          raise ArgumentError, '- Wrong number of arguments given, expected 4'
       end
     end
   end
