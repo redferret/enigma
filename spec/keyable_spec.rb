@@ -7,6 +7,13 @@ RSpec.describe Keyable do
     @dummyenigma = DummyEnigma.new
   end
 
+  describe '#add_padding' do
+    it 'adds padding to front of number that is less than 5 digits' do
+      number = @dummyenigma.add_padding('987')
+      expect(number).to eq '00987'
+    end
+  end
+
   describe '#get_random_number' do
     it 'returns a number' do
       allow(@dummyenigma).to receive(:rand).and_return(43257)
@@ -40,10 +47,13 @@ RSpec.describe Keyable do
     it 'generates a new 5 digit number as a string' do
       allow(@dummyenigma).to receive(:get_random_number).and_return(3242)
       allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(true)
+      allow(@dummyenigma).to receive(:add_padding).and_return('03242')
 
-      key = @dummyenigma.generate_key
+      key =@dummyenigma.generate_key
 
-      expect(key.length).to eq 5
+      expect(@dummyenigma).to have_received(:get_random_number)
+      expect(@dummyenigma).to have_received(:add_padding)
+      expect(@dummyenigma).to have_received(:not_a_valid_key?)
       expect(key).to eq '03242'
     end
     it 'Pads zeros if the random number is less than 5 digits long' do

@@ -15,15 +15,17 @@ module Keyable
 
   def generate_key
     random_number = get_random_number(99999).to_s
-    if not_a_valid_key?(random_number)
-      diff = 5 - random_number.length
-      padding = ""
-      diff.times do
-        padding << '0'
-      end
-      return "#{padding}#{random_number}"
-    end
+    return add_padding(random_number) if not_a_valid_key?(random_number)
     random_number
+  end
+
+  def add_padding(number)
+    diff = 5 - number.length
+    padding = ""
+    diff.times do
+      padding << '0'
+    end
+    return "#{padding}#{number}"
   end
 
   def not_a_valid_key?(key)
