@@ -1,5 +1,3 @@
-require './lib/validable'
-
 module Keyable
   def offset_keys(array1, array2)
     to_sum = [array1, array2]
@@ -29,7 +27,7 @@ module Keyable
   end
 
   def not_a_valid_key?(key)
-    not Validable.valid_key?(key)
+    not (/\b\d{5}\b/.match? key)
   end
 
   def get_random_number(range)

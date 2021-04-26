@@ -18,6 +18,10 @@ begin
           raise ArgumentError, '- Message file not found'
         when :wrong_arg_length
           raise ArgumentError, '- Wrong number of arguments given, expected 4'
+        when :invalid_key_given
+          raise ArgumentError, '- Invalid key given'
+        when :invalid_date_given
+          raise ArgumentError, '- Invalid date given'
       end
     end
   end
