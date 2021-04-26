@@ -13,17 +13,19 @@ error_type = Validable.find_errors(arguments)
 begin
   if error_type.length > 0
     error_type.each do |error|
+      messages = ""
       case error
         when :file_not_found
-          raise ArgumentError, '- Message file not found'
+          messages << "- Message file not found\n"
         when :wrong_arg_length
-          raise ArgumentError, '- Wrong number of arguments given, expected 4'
+          messages << "- Wrong number of arguments given, expected 4\n"
         when :invalid_key_given
-          raise ArgumentError, '- Invalid key given'
+          messages << "- Invalid key given\n"
         when :invalid_date_given
-          raise ArgumentError, '- Invalid date given'
+          messages << "- Invalid date given\n"
       end
     end
+    raise ArgumentError, messages
   end
 
   in_file = arguments[0]
