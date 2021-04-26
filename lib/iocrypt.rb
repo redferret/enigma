@@ -22,7 +22,7 @@ class IoCrypt
   def write_message_to_file(message)
     lines = message.split('\n')
     lines.each do |line|
-      write_line_to(@file_out, message)
+      write_line_to(@file_out, line)
     end
   end
 
