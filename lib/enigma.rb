@@ -15,7 +15,7 @@ class Enigma
   end
 
   def decrypt(message, key, date = current_date)
-    process_message(message, key, date, false)
+    process_message(message.chomp, key, date, false)
   end
 
   def process_message(message, key, date, encrypt = true)
