@@ -1,4 +1,4 @@
-module Validatable
+module Validation
   extend self
 
   def valid_date?(date)
@@ -15,30 +15,17 @@ module Validatable
     /\b\d{5}\b/.match? key
   end
 
-  def valid_number_of_arguments?(args)
-    args.length == 4
-  end
-
-  def file_exists?(file_name)
-    File.exist?(file_name)
-  end
-
-  def find_errors(arguments)
+  def find_errors(arguments, expected_arg_length = 4)
     errors = []
-    wrong_number_of_arguments = not(valid_number_of_arguments? arguments)
+    wrong_number_of_arguments = arguments.length != expected_arg_length
     errors << :wrong_arg_length if wrong_number_of_arguments
 
     arg_length = arguments.length
     file_name = arguments[0]
 
-    return (errors << :file_not_found) if not(file_exists?(file_name))
+    return (errors << :file_not_found) if not(IoCrypt.file_exists?(file_name))
 
-    if arg_length == 3
-      key = arguments[2]
-      date = arguments[2]
-      errors << :invalid_key_given if not(valid_key? key)
-      errors << :invalid_date_given if not(valid_date? date)
-    elsif arg_length == 4
+    if arg_length == 4
       key = arguments[2]
       date = arguments[3]
       errors << :invalid_key_given if not(valid_key? key)
