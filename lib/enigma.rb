@@ -7,7 +7,7 @@ class Enigma
   include Keyable
 
   def initialize
-    @character_set = ("a".."z").to_a << " "
+    @character_set = ("a".."z").to_a << " " << "\n"
   end
 
   def encrypt(message, key = generate_key, date = current_date)
@@ -27,16 +27,11 @@ class Enigma
     encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
       offset = key_offsets[counter % 4]
       counter += 1
-      if msg_char != "\n"
-        ordinal = convert_to_ordinal(msg_char)
-        shift = ordinal + offset if encrypt
-        shift = ordinal - offset if not encrypt
-        new_char = @character_set[shift % 27]
-        new_message << new_char
-      else
-        new_message << '\n'
-      end
-      new_message
+      ordinal = convert_to_ordinal(msg_char)
+      shift = ordinal + offset if encrypt
+      shift = ordinal - offset if not encrypt
+      new_char = rotate(shift)
+      new_message << new_char
     end
 
     return {
@@ -46,8 +41,19 @@ class Enigma
     }
   end
 
+  def rotate(shift)
+    new_char_index = shift % @character_set.length
+    @character_set[new_char_index]
+  end
+
   def convert_to_ordinal(char)
-    (char == ' ')? 26 : char.ord - 97
+    case char
+      when ' '
+        return 26
+      when "\n"
+        return 27
+    end
+    char.ord - 97
   end
 
   def offsets(date)
