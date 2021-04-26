@@ -12,8 +12,8 @@ error_type = Validable.find_errors(arguments)
 
 begin
   if error_type.length > 0
+    messages = ""
     error_type.each do |error|
-      messages = ""
       case error
         when :file_not_found
           messages << "- Message file not found\n"
