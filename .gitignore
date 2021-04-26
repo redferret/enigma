@@ -2,3 +2,5 @@ coverage
 coverage/*
 
 out_message
+
+result
