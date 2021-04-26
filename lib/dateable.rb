@@ -11,6 +11,6 @@ module Dateable
 
   def reformat_date(date, format)
     date = Date.strptime(date)
-    date.strftime('%d%m%y')
+    date.strftime(format)
   end
 end
