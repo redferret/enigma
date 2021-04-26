@@ -12,7 +12,7 @@ class Enigma
     process_message(message, key, date)
   end
 
-  def decrypt(message, key, date = formatted_date)
+  def decrypt(message, key, date)
     process_message(message, key, date, false)
   end
 
