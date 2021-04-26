@@ -16,10 +16,14 @@ class Enigma
     process_message(message, key, date, false)
   end
 
-  def process_message(message, key, date, encrypt = true)
+  def make_key_offsets(key, date)
     offsets = offsets(date)
     keys = generate_keys(key)
-    key_offsets = sum_the_keys(offsets, keys)
+    sum_the_keys(offsets, keys)
+  end
+
+  def process_message(message, key, date, encrypt = true)
+    key_offsets = make_key_offsets(key, date)
     downcase_message = message.downcase.chars
     counter = 0
     encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
