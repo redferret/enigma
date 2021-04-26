@@ -56,9 +56,9 @@ RSpec.describe Keyable do
 
   describe '#not_a_valid_key?' do
     it 'negates vall on valid_key?' do
-      allow(Validation).to receive(:valid_key?).and_return(true)
-      actual_validation = @dummyenigma.not_a_valid_key?(123)
-      expect(actual_validation).to eq false
+      allow(Validable).to receive(:valid_key?).and_return(true)
+      actual_validable = @dummyenigma.not_a_valid_key?(123)
+      expect(actual_validable).to eq false
     end
   end
 end

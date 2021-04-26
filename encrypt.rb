@@ -2,13 +2,13 @@ require 'date'
 
 require './lib/enigma'
 require './lib/iocrypt'
-require './lib/validation'
+require './lib/validable'
 
 arguments = ARGV
 arg_length = arguments.length
 
 enigma = Enigma.new
-error_type = Validation.find_errors(arguments)
+error_type = Validable.find_errors(arguments)
 
 begin
   if error_type.length > 0

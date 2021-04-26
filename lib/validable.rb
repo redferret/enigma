@@ -1,4 +1,4 @@
-module Validation
+module Validable
   extend self
 
   def valid_date?(date)
