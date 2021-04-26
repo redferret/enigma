@@ -61,7 +61,7 @@ class Enigma
     sqr_num = numeric**2
     str_num = sqr_num.to_s
     last_four_digits = str_num[-4..-1].chars
-    digits.map do |char|
+    last_four_digits.map do |char|
       char.to_i
     end
   end
