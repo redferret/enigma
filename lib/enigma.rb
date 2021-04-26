@@ -2,6 +2,7 @@ require 'date'
 require 'pry'
 
 require './lib/keyable'
+require './lib/dateable'
 
 class Enigma
   include Keyable
@@ -10,11 +11,11 @@ class Enigma
     @character_set = ("a".."z").to_a << " " << "\n"
   end
 
-  def encrypt(message, key = generate_key, date = current_date)
+  def encrypt(message, key = generate_key, date = formatted_date)
     process_message(message, key, date)
   end
 
-  def decrypt(message, key, date = current_date)
+  def decrypt(message, key, date = formatted_date)
     process_message(message.chomp, key, date, false)
   end
 
@@ -66,19 +67,8 @@ class Enigma
     end
   end
 
-  def get_current_date
-    time = Time.now
-    full_time_str = time.to_s
-    full_time_as_arr = full_time_str.split(' ')
-    time_str = full_time_as_arr.first
-  end
-
-  def reformat_date(date)
-    date = Date.strptime(date)
-    date.strftime('%d%m%y')
-  end
-  def current_date
-    date = get_current_date
-    reformat_date(date)
+  def formatted_date
+    date = Dateable.current_date
+    Dateable.reformat_date(date, '%d%m%y')
   end
 end

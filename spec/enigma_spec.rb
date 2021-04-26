@@ -10,22 +10,6 @@ RSpec.describe Enigma do
     end
   end
 
-  describe '#reformat_date' do
-    it 'reformats a date from Time to a new format DDMMYY' do
-      enigma = Enigma.new
-      actual_date = enigma.reformat_date('2021-07-29')
-      expect(actual_date).to eq '290721'
-    end
-  end
-
-  describe('#get_current_date') do
-    it 'gets the first part of the current Time object as a string' do
-      enigma = Enigma.new
-      actual_date = enigma.get_current_date
-      expect(actual_date).to match /\d{4}-\d{2}-\d{2}/
-    end
-  end
-
   describe '#encrypt' do
     it 'Encrypts text using optional params' do
       enigma = Enigma.new
@@ -51,7 +35,7 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
       allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
       allow(enigma).to receive(:generate_key).and_return('02715')
-      allow(enigma).to receive(:current_date).and_return('040895')
+      allow(enigma).to receive(:formatted_date).and_return('040895')
 
       expected = {
         encryption: 'kdadrzlguku',
@@ -88,7 +72,7 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
       allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
       allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
-      allow(enigma).to receive(:current_date).and_return('040895')
+      allow(enigma).to receive(:formatted_date).and_return('040895')
 
       expected = {
         encryption: 'hello world',
@@ -145,11 +129,11 @@ RSpec.describe Enigma do
     end
   end
 
-  describe '#current_date' do
+  describe '#formatted_date' do
     it 'returns date in format DDMMYY' do
       enigma = Enigma.new
-      allow(enigma).to receive(:get_current_date).and_return('2021-07-12')
-      actual_date = enigma.current_date
+      allow(Dateable).to receive(:current_date).and_return('2021-07-12')
+      actual_date = enigma.formatted_date
 
       expect(actual_date).to eq '120721'
     end
