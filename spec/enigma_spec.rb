@@ -119,8 +119,6 @@ RSpec.describe Enigma do
     end
   end
 
-
-
   describe '#offsets' do
     it 'creates the offsets for encryption' do
       enigma = Enigma.new
