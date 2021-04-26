@@ -60,7 +60,7 @@ class Enigma
     numeric = date.to_i
     sqr_num = numeric**2
     str_num = sqr_num.to_s
-    digits = str_num[-4..-1].chars
+    last_four_digits = str_num[-4..-1].chars
     digits.map do |char|
       char.to_i
     end
