@@ -37,16 +37,16 @@ RSpec.describe Keyable do
   end
 
   describe '#generate_key' do
-    it 'generates a new 5 digit number' do
-      allow(@dummyenigma).to receive(:get_random_number).and_return(43242)
-      allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(false)
+    it 'generates a new 5 digit number as a string' do
+      allow(@dummyenigma).to receive(:get_random_number).and_return(3242)
+      allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(true)
 
       key = @dummyenigma.generate_key
 
       expect(key.length).to eq 5
-      expect(key).to eq '43242'
+      expect(key).to eq '03242'
     end
-    it 'Pads a zero if the random number is less than 5 digits long' do
+    it 'Pads zeros if the random number is less than 5 digits long' do
       allow(@dummyenigma).to receive(:get_random_number).and_return(999)
       allow(@dummyenigma).to receive(:not_a_valid_key?).and_return(true)
       actual = @dummyenigma.generate_key
