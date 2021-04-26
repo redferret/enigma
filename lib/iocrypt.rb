@@ -31,7 +31,7 @@ class IoCrypt
   end
 
   private
-  def write_line_to(file, message)
+  def write_line_to(file, line)
     @file_out.puts(line)
   end
   def lines_from_message
