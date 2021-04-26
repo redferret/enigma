@@ -1,6 +1,6 @@
 require 'rspec'
 require './spec/dummyenigma'
-require './lib/Keyable'
+require './lib/keyable'
 
 RSpec.describe Keyable do
   before :all do
@@ -56,7 +56,7 @@ RSpec.describe Keyable do
 
   describe '#not_a_valid_key?' do
     it 'negates vall on valid_key?' do
-      allow(Validatable).to receive(:valid_key?).and_return(true)
+      allow(Validation).to receive(:valid_key?).and_return(true)
       actual_validation = @dummyenigma.not_a_valid_key?(123)
       expect(actual_validation).to eq false
     end
