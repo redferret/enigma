@@ -19,7 +19,7 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
 
       expected = {
-        encryption: 'keder ohulw',
+        encryption: 'kdadrzlguku',
         key: '02715',
         date: '040895'
       }
@@ -38,7 +38,7 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:current_date).and_return('040895')
 
       expected = {
-        encryption: 'keder ohulw',
+        encryption: 'kdadrzlguku',
         key: '02715',
         date: '040895'
       }
@@ -61,12 +61,12 @@ RSpec.describe Enigma do
         key: '02715',
         date: '040895'
       }
-      actual = enigma.decrypt('keder ohulw', '02715', '040895')
+      actual = enigma.decrypt('kdadrzlguku', '02715', '040895')
 
       expect(actual).to eq expected
     end
 
-    it 'derypts text without a date' do
+    it 'decrypts text without a date' do
       enigma = Enigma.new
 
       allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
@@ -79,14 +79,23 @@ RSpec.describe Enigma do
         key: '02715',
         date: '040895'
       }
-      actual = enigma.decrypt('keder ohulw', '02715')
+      actual = enigma.decrypt('kdadrzlguku', '02715')
 
       expect(actual).to eq expected
     end
   end
 
+  describe '#rotate' do
+    it 'performs a shoft rotation of the character set' do
+      enigma = Enigma.new
+      char = enigma.rotate(121)
+      expected_char = 'j'
+      expect(char).to eq expected_char
+    end
+  end
+
   describe '#convert_to_ordinal' do
-    it 'converts a character to it\'s ordinal value' do
+    it "converts a character to it's ordinal value" do
       enigma = Enigma.new
 
       expected = 7
@@ -99,6 +108,13 @@ RSpec.describe Enigma do
       enigma = Enigma.new
       expected = 26
       actual = enigma.convert_to_ordinal(' ')
+      expect(actual).to eq expected
+    end
+
+    it 'accounts for the new line character to be 27' do
+      enigma = Enigma.new
+      expected = 27
+      actual = enigma.convert_to_ordinal("\n")
       expect(actual).to eq expected
     end
   end
