@@ -19,12 +19,12 @@ RSpec.describe Validable do
   end
 
   describe '#valid_key?' do
-    it 'returns true is a valid key is given' do
+    it 'returns true if a valid key is given' do
       test_key = '03432'
       expect(Validable.valid_key?(test_key)).to eq true
     end
 
-    it 'returns false is an invalid key is given' do
+    it 'returns false if an invalid key is given' do
       first_test_key = '991220'
       second_test_key = '213'
 
@@ -34,6 +34,17 @@ RSpec.describe Validable do
   end
 
   describe '#find_errors' do
+    it 'returns no errors for valid arguments' do
+      allow(IoCrypt).to receive(:file_exists?).and_return(true)
+      allow(Validable).to receive(:valid_date?).and_return(true)
+      allow(Validable).to receive(:valid_key?).and_return(true)
+
+      dummy_args = [0,0,0,0]
+      errors = Validable.find_errors(dummy_args, 4)
+
+      expect(errors).to eq []
+    end
+
     it 'returns errors for an invalid key given' do
       allow(IoCrypt).to receive(:file_exists?).and_return(true)
       allow(Validable).to receive(:valid_date?).and_return(true)
