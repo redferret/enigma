@@ -5,7 +5,7 @@ RSpec.describe IoCrypt do
   let(:mock_iocrypt) do
     @mock_file = instance_double('File')
     allow_any_instance_of(IoCrypt).to receive(:open_file).and_return(@mock_file)
-    allow_any_instance_of(IoCrypt).to receive(:lines_from_message).and_return(['line1', 'line2'])
+    allow_any_instance_of(IoCrypt).to receive(:lines_from_file).and_return(['line1', 'line2'])
     mock_iocrypt = IoCrypt.new('fake file', 'fake file')
   end
   describe '#new' do

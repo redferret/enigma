@@ -13,7 +13,7 @@ class IoCrypt
   end
 
   def process_message
-    lines = lines_from_message
+    lines = lines_from_file
     lines.reduce('') do |message, line|
       message + line
     end
@@ -34,7 +34,7 @@ class IoCrypt
   def write_line_to(file, line)
     @file_out.puts(line)
   end
-  def lines_from_message
+  def lines_from_file
     @file_in.readlines
   end
 end
