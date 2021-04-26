@@ -66,16 +66,19 @@ class Enigma
     end
   end
 
-  def get_year_from_time(time)
+  def get_current_date
+    time = Time.now
     full_time_str = time.to_s
     full_time_as_arr = full_time_str.split(' ')
     time_str = full_time_as_arr.first
   end
 
-  def current_date
-    time = Time.now
-    time_str = get_year_from_time(time)
-    date = Date.strptime(time_str)
+  def reformat_date(date)
+    date = Date.strptime(date)
     date.strftime('%d%m%y')
+  end
+  def current_date
+    date = get_current_date
+    reformat_date(date)
   end
 end

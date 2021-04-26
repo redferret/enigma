@@ -10,10 +10,18 @@ RSpec.describe Enigma do
     end
   end
 
-  describe('#get_year_from_time') do
+  describe '#reformat_date' do
+    it 'reformats a date from Time to a new format DDMMYY' do
+      enigma = Enigma.new
+      actual_date = enigma.reformat_date('2021-07-29')
+      expect(actual_date).to eq '290721'
+    end
+  end
+
+  describe('#get_current_date') do
     it 'gets the first part of the current Time object as a string' do
       enigma = Enigma.new
-      actual_date = enigma.get_year_from_time(Time.now)
+      actual_date = enigma.get_current_date
       expect(actual_date).to match /\d{4}-\d{2}-\d{2}/
     end
   end
@@ -140,7 +148,7 @@ RSpec.describe Enigma do
   describe '#current_date' do
     it 'returns date in format DDMMYY' do
       enigma = Enigma.new
-      allow(enigma).to receive(:get_year_from_time).and_return('2021-07-12')
+      allow(enigma).to receive(:get_current_date).and_return('2021-07-12')
       actual_date = enigma.current_date
 
       expect(actual_date).to eq '120721'
