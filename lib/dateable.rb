@@ -1,3 +1,5 @@
+require 'date'
+
 module Dateable
   extend self
   def current_date
