@@ -16,12 +16,12 @@ RSpec.describe Keyable do
       expect(number).to eq 43257
     end
   end
-  describe '#offset_keys' do
+  describe '#sum_the_keys' do
     it 'sums the offsets and keys together into one array' do
       expected = [3, 27, 73, 20]
       offsets = [1, 0, 2, 5]
       keys = [2, 27, 71, 15]
-      actual = @dummyenigma.offset_keys(offsets, keys)
+      actual = @dummyenigma.sum_the_keys(offsets, keys)
 
       expect(actual).to eq expected
     end

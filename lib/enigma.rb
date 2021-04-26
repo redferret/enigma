@@ -22,7 +22,7 @@ class Enigma
   def process_message(message, key, date, encrypt = true)
     offsets = offsets(date)
     keys = generate_keys(key)
-    key_offsets = offset_keys(offsets, keys)
+    key_offsets = sum_the_keys(offsets, keys)
     downcase_message = message.downcase.chars
     counter = 0
     encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|

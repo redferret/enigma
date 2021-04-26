@@ -16,7 +16,7 @@ RSpec.describe Enigma do
 
       allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
       allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
-      allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
+      allow(enigma).to receive(:sum_the_keys).and_return([3, 27, 73, 20])
 
       expected = {
         encryption: 'kdadrzlguku',
@@ -33,7 +33,7 @@ RSpec.describe Enigma do
 
       allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
       allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
-      allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
+      allow(enigma).to receive(:sum_the_keys).and_return([3, 27, 73, 20])
       allow(enigma).to receive(:generate_key).and_return('02715')
       allow(enigma).to receive(:formatted_date).and_return('040895')
 
@@ -54,7 +54,7 @@ RSpec.describe Enigma do
 
       allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
       allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
-      allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
+      allow(enigma).to receive(:sum_the_keys).and_return([3, 27, 73, 20])
 
       expected = {
         encryption: 'hello world',
@@ -71,7 +71,7 @@ RSpec.describe Enigma do
 
       allow(enigma).to receive(:offsets).and_return([1, 0, 2, 5])
       allow(enigma).to receive(:generate_keys).and_return([2, 27, 71, 15])
-      allow(enigma).to receive(:offset_keys).and_return([3, 27, 73, 20])
+      allow(enigma).to receive(:sum_the_keys).and_return([3, 27, 73, 20])
       allow(enigma).to receive(:formatted_date).and_return('040895')
 
       expected = {
