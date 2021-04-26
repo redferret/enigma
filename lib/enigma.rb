@@ -24,15 +24,19 @@ class Enigma
     key_offsets = offset_keys(offsets, keys)
     downcase_message = message.downcase.chars
     counter = 0
-
     encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
       offset = key_offsets[counter % 4]
       counter += 1
-      ordinal = convert_to_ordinal(msg_char)
-      shift = ordinal + offset if encrypt
-      shift = ordinal - offset if not encrypt
-      new_char = @character_set[shift % 27]
-      new_message << new_char
+      if msg_char != "\n"
+        ordinal = convert_to_ordinal(msg_char)
+        shift = ordinal + offset if encrypt
+        shift = ordinal - offset if not encrypt
+        new_char = @character_set[shift % 27]
+        new_message << new_char
+      else
+        new_message << '\n'
+      end
+      new_message
     end
 
     return {
