@@ -16,7 +16,7 @@ class IoCrypt
     lines = lines_from_file
     lines.reduce('') do |message, line|
       message + line
-    end
+    end.chomp
   end
 
   def write_message_to_file(message)
