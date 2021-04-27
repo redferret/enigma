@@ -64,8 +64,11 @@ RSpec.describe Enigma do
   describe '#character_is_cryptable?' do
     it 'returns true if the character is a lower case letter, a space, or a new line' do
       enigma = Enigma.new
-      result = enigma.character_is_cryptable?('a')
-      expect(result).to eq true
+      char_set = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z] << ' '
+      char_set.each do |char|
+        result = enigma.character_is_cryptable?(char)
+        expect(result).to eq true
+      end
     end
 
     it 'returns false if it is any other character' do
