@@ -18,9 +18,9 @@ class Enigma
 
   def process_message(message, key, date, encrypt = true)
     key_offsets = make_key_offsets(key, date)
-    message_charaacters = message.downcase.chars
+    message_characters = message.downcase.chars
 
-    encrypted_message = message_charaacters.map do |msg_char|
+    encrypted_message = message_characters.map do |msg_char|
       get_encrypted_character(key_offsets, msg_char, encrypt)
     end
 
