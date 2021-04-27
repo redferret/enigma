@@ -119,13 +119,6 @@ RSpec.describe Enigma do
       actual = enigma.convert_to_ordinal(' ')
       expect(actual).to eq expected
     end
-
-    it 'accounts for the new line character to be 27' do
-      enigma = Enigma.new
-      expected = 27
-      actual = enigma.convert_to_ordinal("\n")
-      expect(actual).to eq expected
-    end
   end
 
   describe '#offsets' do
