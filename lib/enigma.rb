@@ -5,7 +5,7 @@ class Enigma
   include Keyable
 
   def initialize
-    @character_set = ("a".."z").to_a << " " << "\n"
+    @character_set = ("a".."z").to_a << " "
   end
 
   def encrypt(message, key = generate_key, date = formatted_date)
@@ -48,7 +48,7 @@ class Enigma
   end
 
   def character_is_cryptable?(char)
-    ((char.ord > 96 && char.ord < 123) || char == ' ' || char == "\n")
+    ((char.ord > 96 && char.ord < 123) || char == ' ')
   end
 
   def rotate(shift)
