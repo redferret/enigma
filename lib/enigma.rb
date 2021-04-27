@@ -20,8 +20,8 @@ class Enigma
     key_offsets = make_key_offsets(key, date)
     downcase_message = message.downcase.chars
 
-    encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
-      new_message << get_encrypted_character(key_offsets, msg_char, encrypt)
+    encrypted_message = downcase_message.map do |msg_char|
+      get_encrypted_character(key_offsets, msg_char, encrypt)
     end
 
     return {
