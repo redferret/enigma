@@ -60,7 +60,11 @@ class Enigma
   end
 
   def character_is_alpha?(char)
-    (char.ord > 96 && char.ord < 123)
+    (char >= 'a' && char <= 'z')
+  end
+
+  def char_is_a_space(char)
+    char == ' '
   end
 
   def rotate(shift)
@@ -73,9 +77,6 @@ class Enigma
     char.ord - 97
   end
 
-  def char_is_a_space(char)
-    char == ' '
-  end
 
   def offsets(date)
     numeric = date.to_i
