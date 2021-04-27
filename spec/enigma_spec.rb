@@ -17,7 +17,7 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:make_key_offsets).and_return([3, 27, 73, 20])
 
       expected = {
-        encryption: 'kdadrzlguku',
+        encryption: 'keder ohulw',
         key: '02715',
         date: '040895'
       }
@@ -34,7 +34,7 @@ RSpec.describe Enigma do
       allow(enigma).to receive(:formatted_date).and_return('040895')
 
       expected = {
-        encryption: 'kdadrzlguku',
+        encryption: 'keder ohulw',
         key: '02715',
         date: '040895'
       }
@@ -55,7 +55,7 @@ RSpec.describe Enigma do
         key: '02715',
         date: '040895'
       }
-      actual = enigma.decrypt('kdadrzlguku', '02715', '040895')
+      actual = enigma.decrypt('keder ohulw', '02715', '040895')
 
       expect(actual).to eq expected
     end
@@ -70,8 +70,11 @@ RSpec.describe Enigma do
 
     it 'returns false if it is any other character' do
       enigma = Enigma.new
-      result = enigma.character_is_cryptable?('!')
-      expect(result).to eq false
+      char_set = %w[! @ # $ % ^ & * ( ) _ + - = ` ~ : ; \" \' / ? < > |]
+      char_set.each do |char|
+        result = enigma.character_is_cryptable?(char)
+        expect(result).to eq false
+      end
     end
   end
 
@@ -92,7 +95,7 @@ RSpec.describe Enigma do
     it 'performs a shoft rotation of the character set' do
       enigma = Enigma.new
       char = enigma.rotate(121)
-      expected_char = 'j'
+      expected_char = 'n'
       expect(char).to eq expected_char
     end
   end
