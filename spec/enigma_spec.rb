@@ -13,6 +13,7 @@ RSpec.describe Enigma do
   describe '#encrypt' do
     it 'Encrypts text using optional params' do
       enigma = Enigma.new
+      allow(enigma).to receive(:is_character_cryptable?).and_return(true)
       allow(enigma).to receive(:make_key_offsets).and_return([3, 27, 73, 20])
 
       expected = {
@@ -27,6 +28,7 @@ RSpec.describe Enigma do
 
     it 'Encrypts text without a date or key' do
       enigma = Enigma.new
+      allow(enigma).to receive(:is_character_cryptable?).and_return(true)
       allow(enigma).to receive(:make_key_offsets).and_return([3, 27, 73, 20])
       allow(enigma).to receive(:generate_key).and_return('02715')
       allow(enigma).to receive(:formatted_date).and_return('040895')
@@ -45,6 +47,7 @@ RSpec.describe Enigma do
   describe '#decrypt' do
     it 'decrypts a message with given key and date' do
       enigma = Enigma.new
+      allow(enigma).to receive(:is_character_cryptable?).and_return(true)
       allow(enigma).to receive(:make_key_offsets).and_return([3, 27, 73, 20])
 
       expected = {
@@ -55,6 +58,20 @@ RSpec.describe Enigma do
       actual = enigma.decrypt('kdadrzlguku', '02715', '040895')
 
       expect(actual).to eq expected
+    end
+  end
+
+  describe '#is_character_cryptable?' do
+    it 'returns true if the character is a lower case letter, a space, or a new line' do
+      enigma = Enigma.new
+      result = enigma.is_character_cryptable?('a')
+      expect(result).to eq true
+    end
+
+    it 'returns false if it is any other character' do
+      enigma = Enigma.new
+      result = enigma.is_character_cryptable?('!')
+      expect(result).to eq false
     end
   end
 

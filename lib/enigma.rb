@@ -29,10 +29,14 @@ class Enigma
     encrypted_message = downcase_message.each_with_object([]) do |msg_char, new_message|
       offset = key_offsets[counter % 4]
       counter += 1
-      ordinal = convert_to_ordinal(msg_char)
-      shift = ordinal + offset if encrypt
-      shift = ordinal - offset if not encrypt
-      new_char = rotate(shift)
+      if is_character_cryptable?(msg_char)
+        ordinal = convert_to_ordinal(msg_char)
+        shift = ordinal + offset if encrypt
+        shift = ordinal - offset if not encrypt
+        new_char = rotate(shift)
+      else
+        new_char = msg_char
+      end
       new_message << new_char
     end
 
@@ -41,6 +45,10 @@ class Enigma
       key: key,
       date: date
     }
+  end
+
+  def is_character_cryptable?(char)
+    ((char.ord > 96 && char.ord < 123) || char == ' ' || char == "\n")
   end
 
   def rotate(shift)
