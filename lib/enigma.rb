@@ -37,19 +37,23 @@ class Enigma
     keys = generate_keys(key)
     sum_the_keys(offsets, keys)
   end
-  
+
   def get_encrypted_character(key_offsets, msg_char, encrypt)
     offset = key_offsets.first
     key_offsets.rotate!
 
     if character_is_cryptable?(msg_char)
-      ordinal = convert_to_ordinal(msg_char)
-      shift = ordinal + offset if encrypt
-      shift = ordinal - offset if not encrypt
+      shift = get_shift(msg_char, encrypt)
       return rotate(shift)
     else
       return msg_char
     end
+  end
+
+  def get_shift(msg_char, encrypt)
+    ordinal = convert_to_ordinal(msg_char)
+    return ordinal + offset if encrypt
+    return ordinal - offset if not encrypt
   end
 
   def character_is_cryptable?(char)
