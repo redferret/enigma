@@ -70,7 +70,7 @@ RSpec.describe Enigma do
 
     it 'returns false if it is any other character' do
       enigma = Enigma.new
-      char_set = %w[! @ # $ % ^ & * ( ) _ + - = ` ~ : ; \" \' / ? < > |]
+      char_set = %w[! @ # $ % ^ & * ( ) _ + - = ` ~ : ; \" \' / ? < > | , .]
       char_set.each do |char|
         result = enigma.character_is_cryptable?(char)
         expect(result).to eq false
