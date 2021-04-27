@@ -13,10 +13,6 @@ module Validable
     return true
   end
 
-  def valid_key?(key)
-    Keyable.valid_key?(key)
-  end
-
   def find_errors(arguments, expected_arg_length = 4)
     errors = []
     wrong_number_of_arguments = arguments.length != expected_arg_length
@@ -30,7 +26,7 @@ module Validable
     if arg_length == 4
       key = arguments[2]
       date = arguments[3]
-      errors << :invalid_key_given if not(valid_key? key)
+      errors << :invalid_key_given if not(Keyable.valid_key?(key))
       errors << :invalid_date_given if not(valid_date? date)
     end
     return errors
