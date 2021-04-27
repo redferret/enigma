@@ -5,7 +5,7 @@ class Enigma
   include Keyable
 
   def initialize
-    @character_set = ("a".."z").to_a << " "
+    @rotor = ("a".."z").to_a << " "
   end
 
   def encrypt(message, key = generate_key, date = formatted_date)
@@ -15,7 +15,6 @@ class Enigma
   def decrypt(message, key, date)
     process_message(message, key, date, false)
   end
-
 
   def process_message(message, key, date, encrypt = true)
     key_offsets = make_key_offsets(key, date)
@@ -43,21 +42,21 @@ class Enigma
     key_offsets.rotate!
 
     if character_is_cryptable?(msg_char)
-      shift = get_shift(msg_char, encrypt)
+      shift = get_shift(msg_char, offset, encrypt)
       return rotate(shift)
     else
       return msg_char
     end
   end
 
-  def get_shift(msg_char, encrypt)
+  def get_shift(msg_char, offset, encrypt)
     ordinal = convert_to_ordinal(msg_char)
     return ordinal + offset if encrypt
     return ordinal - offset if not encrypt
   end
 
   def character_is_cryptable?(char)
-    (character_is_alpha?(char) || char == ' ')
+    (character_is_alpha?(char) || char_is_a_space(char))
   end
 
   def character_is_alpha?(char)
@@ -65,16 +64,17 @@ class Enigma
   end
 
   def rotate(shift)
-    new_char_index = shift % @character_set.length
-    @character_set[new_char_index]
+    spin = shift % @rotor.length
+    @rotor[spin]
   end
 
   def convert_to_ordinal(char)
-    case char
-      when ' '
-        return 26
-    end
+    return 26 if char_is_a_space(char)
     char.ord - 97
+  end
+
+  def char_is_a_space(char)
+    char == ' '
   end
 
   def offsets(date)
